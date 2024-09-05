@@ -1,24 +1,16 @@
-import { useState, useEffect } from 'react'
-import { getAllArtworks } from '../../utils/api'
 import { List } from '@mui/joy'
 import ArtCard from './ArtCard'
+import { ArtworkProps } from './Home'
 
-export default function ArtCardList() {
-    const [artworks, setArtworks] = useState([])
+export default function ArtCardList({ props }: { props: ArtworkProps }) {
+    console.log(props)
 
-    useEffect(() => {
-        ;(async () => {
-            return setArtworks(await getAllArtworks())
-        })()
-    }, [])
-
-    // console.log(artworks)
     return (
         <>
             <div className="flex justify-center bg-primary text-left">
                 <List>
                     <>
-                        {artworks.map((artwork) => (
+                        {props.map((artwork: ArtworkProps) => (
                             <ArtCard props={artwork} />
                         ))}
                     </>

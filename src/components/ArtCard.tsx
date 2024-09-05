@@ -4,54 +4,33 @@ import IconButton from '@mui/joy/IconButton'
 import Typography from '@mui/joy/Typography'
 import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined'
 import CardOverflow from '@mui/joy/CardOverflow'
+import { addToList } from '../../utils/addToList'
+import { ArtworkProps } from './Home'
 
-interface ArtworkProps {
-    id: number
-    artist_title: string
-    date_display: number
-    title: string
-    image_id: number
-    thumbnail: {
-        alt_text: string
-    }
-    alt_text: string
-}
-export default function ArtCard(props: { props: ArtworkProps }) {
-    console.log(props)
 
-    function addToList(artworkId: number) {
-        const ids: number[] = []
-        if (ids.includes(artworkId)) {
-            return
-        }
-        ids.push(artworkId)
-    }
+export default function ArtCard({ props }: { props: ArtworkProps }) {
     return (
         <>
             <div className="flex justify-center bg-primary text-left">
-                <Card
-                    size="lg"
-                    sx={{ width: 640, margin: 1 }}
-                    key={props.props.id}
-                >
+                <Card size="lg" sx={{ width: 640, margin: 1 }} key={props.id}>
                     <CardOverflow>
                         <AspectRatio minHeight="120px" maxHeight="800px">
                             <img
-                                src={`https://www.artic.edu/iiif/2/${props.props.image_id}/full/843,/0/default.jpg`}
-                                srcSet={`https://www.artic.edu/iiif/2/${props.props.image_id}/full/843,/0/default.jpg`}
+                                src={`https://www.artic.edu/iiif/2/${props.image_id}/full/843,/0/default.jpg`}
+                                srcSet={`https://www.artic.edu/iiif/2/${props.image_id}/full/843,/0/default.jpg`}
                                 loading="lazy"
-                                alt={props.props.thumbnail.alt_text}
+                                //alt={props.thumbnail.alt_text}
                             />
                         </AspectRatio>
                     </CardOverflow>
                     <Typography level="title-lg">
-                        {props.props.title}
+                        {props.title}
                         <Typography level="body-sm">
-                            {props.props.date_display}
+                            {props.date_display}
                         </Typography>
                     </Typography>
                     <Typography level="body-sm">
-                        {props.props.artist_title}
+                        {props.artist_title}
                     </Typography>
                     <IconButton
                         aria-label="bookmark Bahamas Islands"
@@ -64,7 +43,7 @@ export default function ArtCard(props: { props: ArtworkProps }) {
                             right: '0.5rem',
                         }}
                         onClick={() => {
-                            addToList(props.props.id)
+                            addToList(props.id)
                         }}
                     >
                         <BookmarkAdd />

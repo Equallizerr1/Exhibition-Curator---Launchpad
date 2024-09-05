@@ -10,7 +10,7 @@ const config = {
     semi: false,
     singleQuote: true,
     plugins: ['prettier-plugin-tailwindcss'],
-    tailwindConfig: './styles/tailwind.config.js',
+    tailwindConfig: './tailwind.config.js',
     tailwindAttributes: ['myClassList'],
 }
 

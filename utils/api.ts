@@ -6,8 +6,9 @@ export const getAllArtworks = async () => {
             throw new Error(`Response status: ${response.status}`)
         }
         const json = await response.json()
-        console.log(json)
-    } catch (error) {
+        return json.data
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
         console.log(error.message)
     }
 }
