@@ -13,7 +13,7 @@ interface Artworks {
     title: string
     image_id: number
     thumbnail: {
-        [key: string]: string
+        alt_text: string
     }
     alt_text: string
 }
@@ -45,7 +45,7 @@ export default function BasicCard() {
         <>
             {artWorks.map((artWork: Artworks) => (
                 <>
-                    <div className="flex justify-center text-left">
+                    <div className="flex justify-center bg-primary text-left">
                         <Card
                             size="lg"
                             sx={{ width: 640, margin: 1 }}
@@ -72,7 +72,7 @@ export default function BasicCard() {
                             </Typography>
                             <IconButton
                                 aria-label="bookmark Bahamas Islands"
-                                variant="plain"
+                                variant="soft"
                                 color="neutral"
                                 size="sm"
                                 sx={{
@@ -80,6 +80,7 @@ export default function BasicCard() {
                                     top: '0.875rem',
                                     right: '0.5rem',
                                 }}
+                                
                             >
                                 <BookmarkAdd />
                             </IconButton>
