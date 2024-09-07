@@ -26,6 +26,14 @@ function Home() {
         })()
     }, [])
 
+    const addToList = (artworkId: number) => {
+        if (artworkIds.includes(artworkId)) {
+            return
+        }
+        artworkIds.push(artworkId)
+        return artworkIds
+    }
+
     return (
         <>
             <div className="flex h-48 items-center bg-background">
@@ -33,7 +41,7 @@ function Home() {
                 <DrawerScrollable />
             </div>
             <div className="h-24 bg-primary">
-                <ArtCardList props={artworks} />
+                <ArtCardList artworks={artworks} artworkIds={addToList } />
             </div>
         </>
     )

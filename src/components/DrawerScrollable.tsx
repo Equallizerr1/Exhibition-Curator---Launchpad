@@ -10,17 +10,11 @@ import ModalClose from '@mui/joy/ModalClose'
 import Menu from '@mui/icons-material/Menu'
 import Search from '@mui/icons-material/Search'
 import ListItem from '@mui/joy/ListItem'
-import { useState, useEffect } from 'react'
-import { ids } from '../../utils/addToList'
+import { useState } from 'react'
 
 export default function DrawerScrollable() {
     const [open, setOpen] = useState(false)
-    const [artworkIds, setArtworkIds] = useState([])
-    console.log(artworkIds)
-    useEffect(() => {
-        setArtworkIds(ids)
-    }, [])
-    
+
     return (
         <React.Fragment>
             <IconButton
@@ -89,13 +83,13 @@ export default function DrawerScrollable() {
                     }}
                 />
                 <List>
-                    {artworkIds.map((artwork, index) => (
+                    {/* {artworkIds.map((artwork, index) => (
                         <ListItem key={index}>
                             <ListItemButton onClick={() => setOpen(false)}>
                                 Item {artwork}
                             </ListItemButton>
                         </ListItem>
-                    ))}
+                    ))} */}
                 </List>
             </Drawer>
         </React.Fragment>

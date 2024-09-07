@@ -1,19 +1,18 @@
-import { List } from '@mui/joy'
+import { List, ListItem } from '@mui/joy'
 import ArtCard from './ArtCard'
 import { ArtworkProps } from './Home'
 
-export default function ArtCardList({ props }: { props: ArtworkProps }) {
-    console.log(props)
-
+export default function ArtCardList(
+    { artworks }: { artworks: ArtworkProps },
+) {
+    console.log(artworkIds)
     return (
         <>
-            <div className="flex justify-center bg-primary text-left">
+            <div className="bg-primary text-left">
                 <List>
-                    <>
-                        {props.map((artwork: ArtworkProps) => (
-                            <ArtCard props={artwork} />
-                        ))}
-                    </>
+                    <ListItem>
+                        <ArtCard artworks={artworks} />
+                    </ListItem>
                 </List>
             </div>
         </>
