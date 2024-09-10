@@ -5,7 +5,6 @@ interface ArtworkDetailsProps {
 }
 // flex items-center justify-center
 const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({ artwork }) => {
-    console.log(artwork)
     return (
         <>
             <div className="col-span-4 col-start-2 grid grid-cols-3 gap-4">
