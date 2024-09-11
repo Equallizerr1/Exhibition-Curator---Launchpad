@@ -1,8 +1,6 @@
 import axios from 'axios'
 
 const BASE_URL = 'https://api.artic.edu/api/v1/artworks'
-let image_id = ''
-const IMAGES_URL = `https://api.artic.edu/api/v1/artworks/${image_id}`
 
 export const fetchArtworks = async () => {
     try {
@@ -41,7 +39,7 @@ export const fetchArtworkImages = async (artworkIds: any[]) => {
         for (let i = 0; i < artworkIds.length; i++) {
             const { data } = await axios.get(`${BASE_URL}/${artworkIds[i]}`)
             responseArr.push(data.data)
-           // console.log(responseArr)
+            // console.log(responseArr)
         }
         return responseArr
     } catch (error) {
