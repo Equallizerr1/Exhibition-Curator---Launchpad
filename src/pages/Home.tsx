@@ -29,15 +29,17 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     const [artworks, setArtworks] = useState<any[]>([])
     const [artworkIds, setArtworkIds] = useState<any[]>([])
+    const [currentPage, setCurrentPage] = useState(1) // Pagination state
+    const itemsPerPage = 12 // Number of artworks per page
     const tempArt: React.SetStateAction<any[]> = []
 
     // Function to fetch artworks based on the query
     const searchArtworks = async (artistId: string) => {
-        console.log(artistId)
         const data = await fetchArtworksSearch(artistId)
         if (data) setArtworkIds(data)
     }
-    //gets initial images from API
+
+    // Fetch initial artworks from the API
     useEffect(() => {
         fetchArtworks().then((data) => {
             if (data) setArtworks(data.data)
@@ -63,11 +65,40 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
             artistId: '',
         },
     })
+
     function onSubmit(data: z.infer<typeof FormSchema>) {
         searchArtworks(data.artistId)
     }
 
-    console.log(artworks)
+    // Pagination logic
+    const indexOfLastItem = currentPage * itemsPerPage
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage
+    const currentArtworks = artworks.slice(indexOfFirstItem, indexOfLastItem)
+    const totalPages = Math.ceil(artworks.length / itemsPerPage)
+
+    // Pagination buttons using ShadUI's button
+    const Pagination = () => {
+        return (
+            <div className="mt-4 flex justify-center space-x-4">
+                <Button
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </Button>
+                <span className="self-center">
+                    Page {currentPage} of {totalPages}
+                </span>
+                <Button
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                >
+                    Next
+                </Button>
+            </div>
+        )
+    }
+
     return (
         <div className="bg-background">
             <Form {...form}>
@@ -99,8 +130,10 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
                     </Button>
                 </form>
             </Form>
+
+            {/* Artworks Display */}
             <div>
-                {artworks.map((artwork) => (
+                {currentArtworks.map((artwork) => (
                     <ArtworkCard
                         key={artwork.id}
                         artwork={artwork}
@@ -108,8 +141,12 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
                     />
                 ))}
             </div>
+
+            {/* Pagination Component */}
+            <Pagination />
+
             <Link to="/exhibition">
-                <button>Go to My Exhibition</button>
+                <Button>Go to My Exhibition</Button>
             </Link>
         </div>
     )
