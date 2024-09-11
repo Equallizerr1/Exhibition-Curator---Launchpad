@@ -11,7 +11,6 @@ const ArtworkCard: React.FC<ArtworkCardProps> = ({
     artwork,
     onAddToCollection,
 }) => {
-    //console.log(artwork);
     return (
         <div className="bg-surface">
             <ArtworkDetails artwork={artwork}></ArtworkDetails>
