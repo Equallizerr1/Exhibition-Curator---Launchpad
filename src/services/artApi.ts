@@ -41,7 +41,6 @@ export const fetchArtworkImages = async (artworkIds: any[]) => {
         const responseArr = []
         for (let i = 0; i < artworkIds.length; i++) {
             const { data } = await axios.get(`${BASE_URL}/${artworkIds[i]}`)
-            console.log(data.data)
             responseArr.push(data.data)
         }
         return responseArr

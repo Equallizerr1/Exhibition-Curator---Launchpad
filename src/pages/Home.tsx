@@ -23,22 +23,35 @@ import {
 } from '@/components/ui/form'
 
 interface HomeProps {
-    addToCollection: (artwork: any) => void
+    addToCollection: (artwork: Array<[]>) => void
+}
+
+export interface Artwork {
+    image_id: number
+    thumbnail: {
+        alt_text: string
+    }
+    id: number
+    title: string
+    image_url: string
+    artist_display: string
+    date_display: number
+    medium_display: string
+    // Add other properties as needed
 }
 
 const Home: React.FC<HomeProps> = ({ addToCollection }) => {
-    const [artworks, setArtworks] = useState<any[]>([])
-    const [artworkIds, setArtworkIds] = useState<any[]>([])
+    const [artworks, setArtworks] = useState<Artwork[]>([])
+    const [artworkIds, setArtworkIds] = useState<number[]>([])
     const [pagination, setPagination] = useState({
         currentPage: 1,
         totalPages: 1,
         nextPage: 2,
         prevPage: 0,
     })
-    const [nextPageData, setNextPageData] = useState<any[]>([])
-    const tempArt: React.SetStateAction<any[]> = []
-    const [searchedArt, setSearchedArt] = useState<any[]>([])
-
+    const [nextPageData, setNextPageData] = useState<Artwork[]>([])
+    const [searchedArt, setSearchedArt] = useState<Artwork[]>([])
+    console.log(nextPageData)
     // Function to fetch artworks based on the query
     const searchArtworks = async (artistId: string) => {
         const data = await fetchArtworksSearch(artistId)
@@ -97,9 +110,10 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     }
 
     useEffect(() => {
-        fetchArtworkImages(artworkIds).then((data) => {
-            tempArt.push(data)
-            setSearchedArt(tempArt.flat())
+        fetchArtworkImages(artworkIds).then((data: Artwork[] | null) => {
+            if (data) {
+                setSearchedArt(data) // Only update if `data` is not null
+            }
         })
     }, [artworkIds])
 
@@ -158,7 +172,7 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
                 <div>
                     {searchedArt.length > 0
                         ? // Render searched artworks
-                        searchedArt.map((artwork) => (
+                          searchedArt.map((artwork) => (
                               <ArtworkCard
                                   key={artwork.id}
                                   artwork={artwork}

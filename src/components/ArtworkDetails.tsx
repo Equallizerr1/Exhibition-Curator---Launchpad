@@ -1,7 +1,8 @@
+import { Artwork } from '@/pages/Home'
 import React from 'react'
 
 interface ArtworkDetailsProps {
-    artwork: any
+    artwork: Artwork
 }
 // flex items-center justify-center
 const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({ artwork }) => {
