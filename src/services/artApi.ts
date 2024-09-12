@@ -1,11 +1,15 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://api.artic.edu/api/v1/artworks'
+const BASE_URL = 'https://api.artic.edu/api/v1/artworks?page='
 
-export const fetchArtworks = async () => {
+export const fetchArtworks = async (page: number = 1) => {
     try {
-        const response = await axios.get(`${BASE_URL}`)
-        return response.data
+        const response = await fetch(
+            `https://api.artic.edu/api/v1/artworks?page=${page}`
+        )
+        const data = await response.json()
+        //console.log('API Response:', data) // Log API response to inspect pagination data
+        return data
     } catch (error) {
         console.error('Error fetching artworks:', error)
         return null
