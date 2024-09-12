@@ -32,10 +32,12 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     const [pagination, setPagination] = useState({
         currentPage: 1,
         totalPages: 1,
-        nextPage: null, // API should provide nextPage as a page number or null
-        prevPage: null, // API should provide prevPage as a page number or null
+        nextPage: 2,
+        prevPage: 0,
     })
+    const [nextPageData, setNextPageData] = useState<any[]>([])
     const tempArt: React.SetStateAction<any[]> = []
+    const [searchedArt, setSearchedArt] = useState<any[]>([])
 
     // Function to fetch artworks based on the query
     const searchArtworks = async (artistId: string) => {
@@ -48,38 +50,56 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
         const data = await fetchArtworks(page)
         if (data) {
             setArtworks(data.data)
-            console.log(data)
-            // Update pagination based on the API response
             setPagination({
                 currentPage: page,
                 totalPages: data.pagination.total_pages,
-                nextPage: data.pagination.next_url, // assuming this is the next page number
-                prevPage: data.pagination.prev_url, // assuming this is the previous page number
+                nextPage: data.pagination.next_url,
+                prevPage: data.pagination.prev_url,
             })
+            if (data.pagination.next_url) {
+                preloadNextPage(data.pagination.current_page + 1)
+            }
         }
     }
+
     // Fetch initial artworks on mount
     useEffect(() => {
         loadArtworks(pagination.currentPage)
     }, [])
 
+    // Preload the next page data
+    const preloadNextPage = async (nextUrl: number) => {
+        const nextPageData = await fetchArtworks(nextUrl)
+        if (nextPageData) {
+            setNextPageData(nextPageData.data)
+        }
+    }
+
     // Pagination buttons
     const handleNextPage = () => {
-        if (pagination.nextPage) {
-            loadArtworks(pagination.currentPage + 1) // Use the nextPage value directly
+        if (nextPageData.length > 0) {
+            setArtworks(nextPageData)
+            setPagination((prev) => ({
+                ...prev,
+                currentPage: prev.currentPage + 1,
+                prevPage: prev.currentPage,
+            }))
+            setNextPageData([])
+        } else if (pagination.nextPage) {
+            loadArtworks(pagination.currentPage + 1)
         }
     }
 
     const handlePreviousPage = () => {
         if (pagination.prevPage) {
-            loadArtworks(pagination.currentPage - 1) // Use the prevPage value directly
+            loadArtworks(pagination.currentPage - 1)
         }
     }
 
     useEffect(() => {
         fetchArtworkImages(artworkIds).then((data) => {
             tempArt.push(data)
-            setArtworks(tempArt.flat())
+            setSearchedArt(tempArt.flat())
         })
     }, [artworkIds])
 
@@ -133,15 +153,26 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
                     </form>
                 </Form>
             </div>
+
             <div className="bg-background">
                 <div>
-                    {artworks.map((artwork) => (
-                        <ArtworkCard
-                            key={artwork.id}
-                            artwork={artwork}
-                            onAddToCollection={addToCollection}
-                        />
-                    ))}
+                    {searchedArt.length > 0
+                        ? // Render searched artworks
+                        searchedArt.map((artwork) => (
+                              <ArtworkCard
+                                  key={artwork.id}
+                                  artwork={artwork}
+                                  onAddToCollection={addToCollection}
+                              />
+                          ))
+                        : // Render artworks from initial load
+                          artworks.map((artwork) => (
+                              <ArtworkCard
+                                  key={artwork.id}
+                                  artwork={artwork}
+                                  onAddToCollection={addToCollection}
+                              />
+                          ))}
                 </div>
 
                 {/* Pagination Controls */}
