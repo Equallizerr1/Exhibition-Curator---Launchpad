@@ -13,9 +13,18 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-export function DropdownMenuRadioGroupDemo() {
-    const [position, setPosition] = React.useState(12)
-    console.log(typeof position)
+interface DropdownMenuRadioGroupDemoProps {
+    limit: number // Limit value passed from the parent
+    setLimit: (newLimit: number) => void // Setter function to update the limit
+}
+
+export const DropdownMenuRadioGroupDemo: React.FC<
+    DropdownMenuRadioGroupDemoProps
+> = ({ limit, setLimit }) => {
+    // Handle the limit selection
+    const handleSelectLimit = (newLimit: number) => {
+        setLimit(newLimit) // Update the limit value in the parent component
+    }
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -25,8 +34,8 @@ export function DropdownMenuRadioGroupDemo() {
                 <DropdownMenuLabel>Choose a number</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup
-                    value={position}
-                    onValueChange={setPosition}
+                    value={limit}
+                    onValueChange={handleSelectLimit}
                 >
                     <DropdownMenuRadioItem value={25}>25</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value={50}>50</DropdownMenuRadioItem>

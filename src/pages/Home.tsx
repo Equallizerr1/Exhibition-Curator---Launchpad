@@ -80,7 +80,7 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     // Fetch initial artworks on mount
     useEffect(() => {
         loadArtworks(pagination.currentPage)
-    }, [])
+    }, [limit])
 
     // Preload the next page data
     const preloadNextPage = async (nextUrl: number) => {
@@ -166,7 +166,10 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
                         >
                             Reset
                         </Button>
-                        <DropdownMenuRadioGroupDemo limit={limit} />
+                        <DropdownMenuRadioGroupDemo
+                            limit={limit}
+                            setLimit={setLimit}
+                        />
                     </form>
                 </Form>
             </div>
