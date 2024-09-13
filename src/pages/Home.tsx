@@ -6,6 +6,7 @@ import {
     fetchArtworkImages,
 } from '../services/artApi'
 import ArtworkCard from '../components/ArtworkCard'
+import { DropdownMenuRadioGroupDemo } from '@/components/DropdownMenuRadioGroupDemo'
 import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -42,6 +43,8 @@ export interface Artwork {
 
 const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     const [artworks, setArtworks] = useState<Artwork[]>([])
+    const [limit, setLimit] = useState<number>(12)
+    console.log(limit, typeof limit)
     const [artworkIds, setArtworkIds] = useState<number[]>([])
     const [pagination, setPagination] = useState({
         currentPage: 1,
@@ -51,7 +54,6 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     })
     const [nextPageData, setNextPageData] = useState<Artwork[]>([])
     const [searchedArt, setSearchedArt] = useState<Artwork[]>([])
-    console.log(nextPageData)
     // Function to fetch artworks based on the query
     const searchArtworks = async (artistId: string) => {
         const data = await fetchArtworksSearch(artistId)
@@ -60,7 +62,7 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
 
     // Function to fetch artworks based on the page
     const loadArtworks = async (page: number = 1) => {
-        const data = await fetchArtworks(page)
+        const data = await fetchArtworks(page, limit)
         if (data) {
             setArtworks(data.data)
             setPagination({
@@ -82,7 +84,7 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
 
     // Preload the next page data
     const preloadNextPage = async (nextUrl: number) => {
-        const nextPageData = await fetchArtworks(nextUrl)
+        const nextPageData = await fetchArtworks(nextUrl, limit)
         if (nextPageData) {
             setNextPageData(nextPageData.data)
         }
@@ -133,7 +135,7 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     function onSubmit(data: z.infer<typeof FormSchema>) {
         searchArtworks(data.artistId)
     }
-
+    //console.log(artworks)
     return (
         <>
             <div className="bg-background">
@@ -164,54 +166,57 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
                         >
                             Reset
                         </Button>
+                        <DropdownMenuRadioGroupDemo limit={limit} />
                     </form>
                 </Form>
             </div>
-
-            <div className="bg-background">
-                <div>
-                    {searchedArt.length > 0
-                        ? // Render searched artworks
-                          searchedArt.map((artwork) => (
-                              <ArtworkCard
-                                  key={artwork.id}
-                                  artwork={artwork}
-                                  onAddToCollection={addToCollection}
-                              />
-                          ))
-                        : // Render artworks from initial load
-                          artworks.map((artwork) => (
-                              <ArtworkCard
-                                  key={artwork.id}
-                                  artwork={artwork}
-                                  onAddToCollection={addToCollection}
-                              />
-                          ))}
-                </div>
-
-                {/* Pagination Controls */}
-                <div className="mt-4 flex justify-center space-x-4">
-                    <Button
-                        onClick={handlePreviousPage}
-                        disabled={!pagination.prevPage}
-                    >
-                        Previous
-                    </Button>
-                    <span className="self-center">
-                        Page {pagination.currentPage} of {pagination.totalPages}
-                    </span>
-                    <Button
-                        onClick={handleNextPage}
-                        disabled={!pagination.nextPage}
-                    >
-                        Next
-                    </Button>
-                </div>
-
-                <Link to="/exhibition">
-                    <Button>Go to My Exhibition</Button>
-                </Link>
-            </div>
+            {artworks.length == 0 ? (
+                // add loading animation
+                <p>loading</p>
+            ) : (
+                <>
+                    <div>
+                        {searchedArt.length > 0
+                            ? // Render searched artworks
+                              searchedArt.map((artwork) => (
+                                  <ArtworkCard
+                                      key={artwork.id}
+                                      artwork={artwork}
+                                      onAddToCollection={addToCollection}
+                                  />
+                              ))
+                            : // Render artworks from initial load
+                              artworks.map((artwork) => (
+                                  <ArtworkCard
+                                      key={artwork.id}
+                                      artwork={artwork}
+                                      onAddToCollection={addToCollection}
+                                  />
+                              ))}
+                    </div>
+                    <div className="mt-4 flex justify-center space-x-4">
+                        <Button
+                            onClick={handlePreviousPage}
+                            disabled={!pagination.prevPage}
+                        >
+                            Previous
+                        </Button>
+                        <span className="self-center">
+                            Page {pagination.currentPage} of{' '}
+                            {pagination.totalPages}
+                        </span>
+                        <Button
+                            onClick={handleNextPage}
+                            disabled={!pagination.nextPage}
+                        >
+                            Next
+                        </Button>
+                    </div>
+                    <Link to="/exhibition">
+                        <Button>Go to My Exhibition</Button>
+                    </Link>
+                </>
+            )}
         </>
     )
 }
