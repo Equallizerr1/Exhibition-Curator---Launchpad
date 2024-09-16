@@ -1,4 +1,3 @@
-'use client'
 import React, { useState, useEffect } from 'react'
 import {
     fetchArtworks,
@@ -10,11 +9,9 @@ import { DropdownMenuRadioGroupDemo } from '@/components/DropdownMenuRadioGroupD
 import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
 import {
     Form,
     FormControl,
@@ -38,13 +35,11 @@ export interface Artwork {
     artist_display: string
     date_display: number
     medium_display: string
-    // Add other properties as needed
 }
 
 const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     const [artworks, setArtworks] = useState<Artwork[]>([])
     const [limit, setLimit] = useState<number>(12)
-    console.log(limit, typeof limit)
     const [artworkIds, setArtworkIds] = useState<number[]>([])
     const [pagination, setPagination] = useState({
         currentPage: 1,
@@ -54,13 +49,17 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     })
     const [nextPageData, setNextPageData] = useState<Artwork[]>([])
     const [searchedArt, setSearchedArt] = useState<Artwork[]>([])
-    // Function to fetch artworks based on the query
+
+    // Sorting and filtering state
+    const [sortOption, setSortOption] = useState<string>('title') // Default sorting by title
+    const [filterArtist, setFilterArtist] = useState<string>('')
+    const [filterMedium, setFilterMedium] = useState<string>('')
+
     const searchArtworks = async (artistId: string) => {
         const data = await fetchArtworksSearch(artistId)
         if (data) setArtworkIds(data)
     }
 
-    // Function to fetch artworks based on the page
     const loadArtworks = async (page: number = 1) => {
         const data = await fetchArtworks(page, limit)
         if (data) {
@@ -77,12 +76,10 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
         }
     }
 
-    // Fetch initial artworks on mount
     useEffect(() => {
         loadArtworks(pagination.currentPage)
     }, [limit])
 
-    // Preload the next page data
     const preloadNextPage = async (nextUrl: number) => {
         const nextPageData = await fetchArtworks(nextUrl, limit)
         if (nextPageData) {
@@ -90,7 +87,6 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
         }
     }
 
-    // Pagination buttons
     const handleNextPage = () => {
         if (nextPageData.length > 0) {
             setArtworks(nextPageData)
@@ -111,10 +107,32 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
         }
     }
 
+    // Filter and sort the artworks based on user input
+    const filteredAndSortedArtworks = artworks
+        .filter((artwork) => {
+            return (
+                (!filterArtist ||
+                    artwork.artist_display
+                        .toLowerCase()
+                        .includes(filterArtist.toLowerCase())) &&
+                (!filterMedium ||
+                    artwork.medium_display
+                        .toLowerCase()
+                        .includes(filterMedium.toLowerCase()))
+            )
+        })
+        .sort((a, b) => {
+            if (sortOption === 'title') return a.title.localeCompare(b.title)
+            if (sortOption === 'artist')
+                return a.artist_display.localeCompare(b.artist_display)
+            if (sortOption === 'date') return a.date_display - b.date_display
+            return 0
+        })
+
     useEffect(() => {
         fetchArtworkImages(artworkIds).then((data: Artwork[] | null) => {
             if (data) {
-                setSearchedArt(data) // Only update if `data` is not null
+                setSearchedArt(data)
             }
         })
     }, [artworkIds])
@@ -135,7 +153,7 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     function onSubmit(data: z.infer<typeof FormSchema>) {
         searchArtworks(data.artistId)
     }
-    //console.log(artworks)
+
     return (
         <>
             <div className="bg-background">
@@ -172,24 +190,42 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
                         />
                     </form>
                 </Form>
+                {/* Sorting and filtering controls */}
+                <div className="mt-4 flex space-x-4">
+                    <Input
+                        placeholder="Filter by Artist"
+                        value={filterArtist}
+                        onChange={(e) => setFilterArtist(e.target.value)}
+                    />
+                    <Input
+                        placeholder="Filter by Medium"
+                        value={filterMedium}
+                        onChange={(e) => setFilterMedium(e.target.value)}
+                    />
+                    <select
+                        value={sortOption}
+                        onChange={(e) => setSortOption(e.target.value)}
+                    >
+                        <option value="title">Sort by Title</option>
+                        <option value="artist">Sort by Artist</option>
+                        <option value="date">Sort by Date</option>
+                    </select>
+                </div>
             </div>
             {artworks.length == 0 ? (
-                // add loading animation
                 <p>loading</p>
             ) : (
                 <>
                     <div>
                         {searchedArt.length > 0
-                            ? // Render searched artworks
-                              searchedArt.map((artwork) => (
+                            ? searchedArt.map((artwork) => (
                                   <ArtworkCard
                                       key={artwork.id}
                                       artwork={artwork}
                                       onAddToCollection={addToCollection}
                                   />
                               ))
-                            : // Render artworks from initial load
-                              artworks.map((artwork) => (
+                            : filteredAndSortedArtworks.map((artwork) => (
                                   <ArtworkCard
                                       key={artwork.id}
                                       artwork={artwork}
