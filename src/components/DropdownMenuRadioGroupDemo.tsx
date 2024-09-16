@@ -14,15 +14,15 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 interface DropdownMenuRadioGroupDemoProps {
-    limit: number // Limit value passed from the parent
-    setLimit: (newLimit: number) => void // Setter function to update the limit
+    limit: any // Limit value passed from the parent
+    setLimit: (newLimit: any) => void // Setter function to update the limit
 }
 
 export const DropdownMenuRadioGroupDemo: React.FC<
     DropdownMenuRadioGroupDemoProps
 > = ({ limit, setLimit }) => {
     // Handle the limit selection
-    const handleSelectLimit = (newLimit: number) => {
+    const handleSelectLimit = (newLimit: any) => {
         setLimit(newLimit) // Update the limit value in the parent component
     }
     return (
