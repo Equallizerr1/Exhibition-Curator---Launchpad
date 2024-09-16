@@ -3,7 +3,7 @@ import axios from 'axios'
 const BASE_URL = 'https://api.artic.edu/api/v1/artworks'
 
 // Function to fetch artworks for a specific page
-export const fetchArtworks = async (page: number = 1, limit: number) => {
+export const fetchArtworks = async (page: number = 1, limit: any) => {
     try {
         const response = await axios.get(`${BASE_URL}`, {
             params: { page, limit },
