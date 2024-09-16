@@ -39,8 +39,7 @@ export interface Artwork {
 
 const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     const [artworks, setArtworks] = useState<Artwork[]>([])
-    const [limit, setLimit] = useState<string>()
-    console.log(typeof limit)
+    const [limit, setLimit] = useState<any>()
     const [artworkIds, setArtworkIds] = useState<number[]>([])
     const [pagination, setPagination] = useState({
         currentPage: 1,

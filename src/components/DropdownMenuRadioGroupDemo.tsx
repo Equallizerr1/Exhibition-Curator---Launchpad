@@ -22,8 +22,8 @@ export const DropdownMenuRadioGroupDemo: React.FC<
     DropdownMenuRadioGroupDemoProps
 > = ({ limit, setLimit }) => {
     // Handle the limit selection
-    const handleSelectLimit = (newLimit: number) => {
-        setLimit(Number(newLimit)) // Update the limit value in the parent component
+    const handleSelectLimit = (newLimit: any) => {
+        setLimit(newLimit) // Update the limit value in the parent component
     }
     return (
         <DropdownMenu>
