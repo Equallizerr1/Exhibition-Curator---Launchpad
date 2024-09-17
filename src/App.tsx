@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import Home from './pages/Home'
-import Exhibition from './pages/Exhibition'
+import { Home } from './pages/Home'
+import { Exhibition } from './pages/Exhibition'
+import { Artic } from './pages/Artic'
 import {
     saveToLocalStorage,
     loadFromLocalStorage,
 } from './utils/localStorageUtils'
+import { ScienceMuseum } from './pages/ScienceMuseum'
 
 const COLLECTION_STORAGE_KEY = 'artworkCollection'
 
@@ -47,15 +49,23 @@ const App: React.FC = () => {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
+                        <Link to="/artic">Art Institute of Chicago</Link>
+                    </li>
+                    <li>
+                        <Link to="/sciencemuseum">Science Museum</Link>
+                    </li>
+                    <li>
                         <Link to="/exhibition">My Exhibition</Link>
                     </li>
                 </ul>
             </nav>
             <Routes>
+                <Route path="/" element={<Home />} />
                 <Route
-                    path="/"
-                    element={<Home addToCollection={addToCollection} />}
+                    path="/artic"
+                    element={<Artic addToCollection={addToCollection} />}
                 />
+                <Route path="/sciencemuseum" element={<ScienceMuseum />} />
                 <Route
                     path="/exhibition"
                     element={

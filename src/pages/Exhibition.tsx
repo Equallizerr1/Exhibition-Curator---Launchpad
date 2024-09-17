@@ -6,7 +6,7 @@ interface ExhibitionProps {
     onRemove: (id: number) => void
 }
 
-const Exhibition: React.FC<ExhibitionProps> = ({ collection, onRemove }) => {
+export const Exhibition: React.FC<ExhibitionProps> = ({ collection, onRemove }) => {
     return (
         <div className="exhibition">
             <h1>Your Exhibition</h1>
@@ -14,5 +14,3 @@ const Exhibition: React.FC<ExhibitionProps> = ({ collection, onRemove }) => {
         </div>
     )
 }
-
-export default Exhibition
