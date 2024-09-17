@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { fetchVaData } from '@/services/articApi'
+import { fetchVaCategory, fetchVaData } from '@/services/articApi'
+import { Button } from '@/components/ui/button'
 
 interface VaCategory {
     count: number
@@ -21,7 +22,10 @@ export const VaMuseum = () => {
         loadCategories()
     }, [])
 
-    console.log(categories)
+    const handleClick = (categoryName: string) => {
+        fetchVaCategory(categoryName)
+    }
+    //console.log(categories)
 
     return (
         <>
@@ -33,7 +37,17 @@ export const VaMuseum = () => {
                 ) : (
                     <>
                         {categories.map((category) => (
-                            <p key={category.id}>{category.value}</p>
+                            <ul>
+                                <Button
+                                    key={category.id}
+                                    onClick={(e) => {
+                                        console.log(e.target.innerText)
+                                        handleClick(category.id)
+                                    }}
+                                >
+                                    {category.value}
+                                </Button>
+                            </ul>
                         ))}
                     </>
                 )}

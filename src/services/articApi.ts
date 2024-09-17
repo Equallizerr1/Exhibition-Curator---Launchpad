@@ -63,3 +63,13 @@ export const fetchVaData = async () => {
         return null
     }
 }
+
+export const fetchVaCategory = async (category: string) => {
+    try {
+        const response = await axios.get(
+            `https://api.vam.ac.uk/v2/objects/search?id_category=${category}`
+        )
+        console.log(response.data)
+        return response.data
+    } catch (error) {}
+}
