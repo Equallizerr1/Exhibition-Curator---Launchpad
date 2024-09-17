@@ -63,4 +63,3 @@ export const fetchVaData = async () => {
         return null
     }
 }
-const API_KEY = 'hymoBCnZlpZtU0KjYMFEvP6uSdCbYUVBP2xbUt5c'
