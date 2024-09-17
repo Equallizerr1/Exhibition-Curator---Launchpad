@@ -1,4 +1,4 @@
-import { Artwork } from '@/pages/Home'
+import { Artwork } from '@/pages/Artic'
 import React from 'react'
 
 interface ArtworkDetailsProps {
