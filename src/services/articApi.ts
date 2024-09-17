@@ -46,3 +46,21 @@ export const fetchArtworkImagesArtic = async (artworkIds: any[]) => {
         return null
     }
 }
+
+const SCI_MUSEUM_URL =
+    'https://collection.sciencemuseumgroup.org.uk/search/museum/Science%20Museum?page[number]=2'
+
+export const fetchMuseumData = async () => {
+    const url = SCI_MUSEUM_URL
+
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                Accept: 'application/json',
+            },
+        })
+        console.log(response.data)
+    } catch (error) {
+        console.error('Error fetching artworks:', error)
+    }
+}
