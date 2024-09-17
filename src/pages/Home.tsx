@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import {
-    fetchArtworks,
-    fetchArtworksSearch,
-    fetchArtworkImages,
-} from '../services/artApi'
+    fetchArtworksArtic,
+    fetchArtworksSearchArtic,
+    fetchArtworkImagesArtic,
+} from '../services/articApi'
 import ArtworkCard from '../components/ArtworkCard'
 import { DropdownMenuRadioGroupDemo } from '@/components/DropdownMenuRadioGroupDemo'
 import { Link } from 'react-router-dom'
@@ -56,12 +56,12 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     const [filterMedium, setFilterMedium] = useState<string>('')
 
     const searchArtworks = async (artistId: string) => {
-        const data = await fetchArtworksSearch(artistId)
+        const data = await fetchArtworksSearchArtic(artistId)
         if (data) setArtworkIds(data)
     }
 
     const loadArtworks = async (page: number = 1) => {
-        const data = await fetchArtworks(page, limit)
+        const data = await fetchArtworksArtic(page, limit)
         if (data) {
             setArtworks(data.data)
             setPagination({
@@ -81,7 +81,7 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
     }, [limit])
 
     const preloadNextPage = async (nextUrl: number) => {
-        const nextPageData = await fetchArtworks(nextUrl, limit)
+        const nextPageData = await fetchArtworksArtic(nextUrl, limit)
         if (nextPageData) {
             setNextPageData(nextPageData.data)
         }
@@ -130,7 +130,7 @@ const Home: React.FC<HomeProps> = ({ addToCollection }) => {
         })
 
     useEffect(() => {
-        fetchArtworkImages(artworkIds).then((data: Artwork[] | null) => {
+        fetchArtworkImagesArtic(artworkIds).then((data: Artwork[] | null) => {
             if (data) {
                 setSearchedArt(data)
             }

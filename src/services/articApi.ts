@@ -3,7 +3,7 @@ import axios from 'axios'
 const BASE_URL = 'https://api.artic.edu/api/v1/artworks'
 
 // Function to fetch artworks for a specific page
-export const fetchArtworks = async (page: number = 1, limit: any) => {
+export const fetchArtworksArtic = async (page: number = 1, limit: any) => {
     try {
         const response = await axios.get(`${BASE_URL}`, {
             params: { page, limit },
@@ -16,7 +16,7 @@ export const fetchArtworks = async (page: number = 1, limit: any) => {
 }
 
 // Function to search for artworks based on a query
-export const fetchArtworksSearch = async (query: string) => {
+export const fetchArtworksSearchArtic = async (query: string) => {
     try {
         const response = await axios.get(
             `https://api.artic.edu/api/v1/artworks/search`,
@@ -36,7 +36,7 @@ export const fetchArtworksSearch = async (query: string) => {
     }
 }
 
-export const fetchArtworkImages = async (artworkIds: any[]) => {
+export const fetchArtworkImagesArtic = async (artworkIds: any[]) => {
     try {
         const responseArr = []
         for (let i = 0; i < artworkIds.length; i++) {
