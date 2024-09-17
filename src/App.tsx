@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { Exhibition } from './pages/Exhibition'
 import { Artic } from './pages/Artic'
+import { VaMuseum } from './pages/VaMuseum'
 import {
     saveToLocalStorage,
     loadFromLocalStorage,
 } from './utils/localStorageUtils'
-import { ScienceMuseum } from './pages/ScienceMuseum'
 
 const COLLECTION_STORAGE_KEY = 'artworkCollection'
 
@@ -52,7 +52,7 @@ const App: React.FC = () => {
                         <Link to="/artic">Art Institute of Chicago</Link>
                     </li>
                     <li>
-                        <Link to="/sciencemuseum">Science Museum</Link>
+                        <Link to="/vamuseum">Victoria & Albert Museum</Link>
                     </li>
                     <li>
                         <Link to="/exhibition">My Exhibition</Link>
@@ -65,7 +65,7 @@ const App: React.FC = () => {
                     path="/artic"
                     element={<Artic addToCollection={addToCollection} />}
                 />
-                <Route path="/sciencemuseum" element={<ScienceMuseum />} />
+                <Route path="/vamuseum" element={<VaMuseum />} />
                 <Route
                     path="/exhibition"
                     element={

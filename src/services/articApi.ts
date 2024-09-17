@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 const ARTIC_URL = 'https://api.artic.edu/api/v1/artworks'
+const VA_URL =
+    'https://api.vam.ac.uk/v2/objects/clusters/category/search?cluster_size=25'
 
 // Function to fetch artworks for a specific page
 export const fetchArtworksArtic = async (page: number = 1, limit: any) => {
@@ -8,7 +10,7 @@ export const fetchArtworksArtic = async (page: number = 1, limit: any) => {
         const response = await axios.get(`${ARTIC_URL}`, {
             params: { page, limit },
         })
-        return response.data // Axios automatically parses the response as JSON
+        return response.data
     } catch (error) {
         console.error('Error fetching artworks:', error)
         return null
@@ -47,20 +49,18 @@ export const fetchArtworkImagesArtic = async (artworkIds: any[]) => {
     }
 }
 
-const SCI_MUSEUM_URL =
-    'https://collection.sciencemuseumgroup.org.uk/search/museum/Science%20Museum?page[number]=2'
-
-export const fetchMuseumData = async () => {
-    const url = SCI_MUSEUM_URL
-
+export const fetchVaData = async () => {
     try {
-        const response = await axios.get(url, {
+        const response = await axios.get(VA_URL, {
             headers: {
                 Accept: 'application/json',
             },
         })
-        console.log(response.data)
+
+        return response.data
     } catch (error) {
         console.error('Error fetching artworks:', error)
+        return null
     }
 }
+const API_KEY = 'hymoBCnZlpZtU0KjYMFEvP6uSdCbYUVBP2xbUt5c'

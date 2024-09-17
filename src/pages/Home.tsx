@@ -9,7 +9,7 @@ export const Home = () => {
                 <Link to="/artic">Art Institute of Chicago</Link>
             </Button>
             <Button>
-                <Link to="/sciencemuseum">Science Museum</Link>
+                <Link to="/vamuseum">Victoria & Albert Museum</Link>
             </Button>
         </>
     )
