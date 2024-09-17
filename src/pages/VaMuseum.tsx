@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 interface VaCategory {
     count: number
     count_max_error: number
-    id: number
+    id: string
     value: string
 }
 
@@ -40,8 +40,7 @@ export const VaMuseum = () => {
                             <ul>
                                 <Button
                                     key={category.id}
-                                    onClick={(e) => {
-                                        console.log(e.target.innerText)
+                                    onClick={() => {
                                         handleClick(category.id)
                                     }}
                                 >
