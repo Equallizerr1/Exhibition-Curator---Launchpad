@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { fetchVaCategory, fetchVaData } from '@/services/articApi'
 import { Button } from '@/components/ui/button'
 
@@ -11,6 +12,7 @@ interface VaCategory {
 
 export const VaMuseum = () => {
     const [categories, setCategories] = useState<VaCategory[]>([])
+    const navigate = useNavigate() // Initialize useNavigate
 
     // Function to load categories
     const loadCategories = async () => {
@@ -22,10 +24,10 @@ export const VaMuseum = () => {
         loadCategories()
     }, [])
 
-    const handleClick = (categoryName: string) => {
-        fetchVaCategory(categoryName)
+    const handleClick = (categoryId: string) => {
+        fetchVaCategory(categoryId)
+        navigate(`/categories/${categoryId}`) // Navigate to CategoryPage with category ID
     }
-    //console.log(categories)
 
     return (
         <>
@@ -37,12 +39,9 @@ export const VaMuseum = () => {
                 ) : (
                     <>
                         {categories.map((category) => (
-                            <ul>
+                            <ul key={category.id}>
                                 <Button
-                                    key={category.id}
-                                    onClick={() => {
-                                        handleClick(category.id)
-                                    }}
+                                    onClick={() => handleClick(category.id)}
                                 >
                                     {category.value}
                                 </Button>

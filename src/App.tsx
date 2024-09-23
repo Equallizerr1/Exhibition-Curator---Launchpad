@@ -8,6 +8,7 @@ import {
     saveToLocalStorage,
     loadFromLocalStorage,
 } from './utils/localStorageUtils'
+import { CategoryPage } from './pages/CategoryPage'
 
 const COLLECTION_STORAGE_KEY = 'artworkCollection'
 
@@ -75,6 +76,7 @@ const App: React.FC = () => {
                         />
                     }
                 />
+                <Route path="/categories/:id" element={<CategoryPage />} />
             </Routes>
         </Router>
     )
