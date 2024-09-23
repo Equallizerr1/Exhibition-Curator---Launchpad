@@ -23,7 +23,13 @@ interface VaCategoryData {
     _primaryTitle: string
 }
 
-export const CategoryPage = () => {
+interface CategoryPageProps {
+    addToCollection: (artwork: any) => void
+}
+
+export const CategoryPage: React.FC<CategoryPageProps> = ({
+    addToCollection,
+}) => {
     const { id } = useParams<{ id: string }>()
     const [categoryRecords, setCategoryData] = useState<VaCategoryData[]>([])
     const [loading, setLoading] = useState(true)
@@ -34,7 +40,6 @@ export const CategoryPage = () => {
             setCategoryData(data.records)
             setLoading(false)
         }
-        console.log(categoryRecords[1])
     }
 
     useEffect(() => {
@@ -50,7 +55,7 @@ export const CategoryPage = () => {
     }
 
     return (
-        <div>
+        <div className="mx-50">
             <h1>Category Items</h1>
             {categoryRecords.map((record, index) => (
                 <div
@@ -86,6 +91,15 @@ export const CategoryPage = () => {
                         <strong>Current Location:</strong>{' '}
                         {record._currentLocation.onDisplay}
                     </p>
+                    <button
+                        onClick={() =>
+                            addToCollection(
+                                ...[{ title: record._primaryTitle }]
+                            )
+                        }
+                    >
+                        Add to Collection
+                    </button>
                 </div>
             ))}
         </div>

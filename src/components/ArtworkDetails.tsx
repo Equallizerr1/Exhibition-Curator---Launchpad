@@ -4,7 +4,6 @@ import React from 'react'
 interface ArtworkDetailsProps {
     artwork: Artwork
 }
-// flex items-center justify-center
 const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({ artwork }) => {
     // if (artwork.image_id === null) {
     //     console.log(artwork.id)

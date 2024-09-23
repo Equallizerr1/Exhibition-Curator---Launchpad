@@ -76,7 +76,10 @@ const App: React.FC = () => {
                         />
                     }
                 />
-                <Route path="/categories/:id" element={<CategoryPage />} />
+                <Route
+                    path="/categories/:id"
+                    element={<CategoryPage addToCollection={addToCollection} />}
+                />
             </Routes>
         </Router>
     )

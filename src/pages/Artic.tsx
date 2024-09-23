@@ -20,7 +20,7 @@ import {
     FormMessage,
 } from '@/components/ui/form'
 
-interface ArticProps {
+export interface ArticProps {
     addToCollection: (artwork: Array<[]>) => void
 }
 

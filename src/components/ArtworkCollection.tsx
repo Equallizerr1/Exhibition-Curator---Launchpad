@@ -15,15 +15,18 @@ const ArtworkCollection: React.FC<ArtworkCollectionProps> = ({
             <h2>My Collection</h2>
             <ul>
                 {collection.map((artwork) => (
-                    <li key={artwork.id}>
-                        <span>{artwork.title}</span>
-                        <Button
-                            size={'sm'}
-                            onClick={() => onRemove(artwork.id)}
-                        >
-                            Remove
-                        </Button>
-                    </li>
+                    <>
+                        {console.log(artwork)}
+                        <li key={artwork.id}>
+                            <span>{artwork.title}</span>
+                            <Button
+                                size={'sm'}
+                                onClick={() => onRemove(artwork.id)}
+                            >
+                                Remove
+                            </Button>
+                        </li>
+                    </>
                 ))}
             </ul>
         </div>
