@@ -62,12 +62,12 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
                     key={index}
                     className="border-gray-300 mb-4 w-72 rounded-lg border p-4"
                 >
-                    <h2>{record._primaryTitle}</h2>
                     <img
                         className="mb-4 block"
                         src={`${record._images._iiif_image_base_url}${imgUrl}`}
                         alt={`${record._primaryTitle} thumbnail`}
                     />
+                    <h2>{record._primaryTitle}</h2>
                     <p> {record._primaryDate}</p>
                     <button
                         onClick={() =>
