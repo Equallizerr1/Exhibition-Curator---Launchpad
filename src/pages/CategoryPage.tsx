@@ -53,9 +53,10 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
     if (!categoryRecords || categoryRecords.length === 0) {
         return <p>No data found for this category.</p>
     }
-
+    console.log(categoryRecords[0])
+    const imgUrl = '/full/full/0/default.jpg'
     return (
-        <div className="mx-50">
+        <div className="mx-10">
             <h1>Category Items</h1>
             {categoryRecords.map((record, index) => (
                 <div
@@ -65,9 +66,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
                     <h2>{record._primaryTitle}</h2>
                     <img
                         className="mb-4 block"
-                        src={record._images._primary_thumbnail}
+                        src={`${record._images._iiif_image_base_url}${imgUrl}`}
                         alt={`${record._primaryTitle} thumbnail`}
-                        style={{ width: '150px', height: '150px' }}
                     />
                     <p>
                         <strong>Accession Number:</strong>{' '}
@@ -94,7 +94,13 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
                     <button
                         onClick={() =>
                             addToCollection(
-                                ...[{ title: record._primaryTitle }]
+                                ...[
+                                    {
+                                        title: record._primaryTitle,
+                                        image: `${record._images._iiif_image_base_url}${imgUrl}`,
+                                        id: record.accessionNumber,
+                                    },
+                                ]
                             )
                         }
                     >
