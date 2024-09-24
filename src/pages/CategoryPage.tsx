@@ -37,7 +37,6 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
     const loadCategoryData = async () => {
         if (id) {
             const data = await fetchVaCategory(id)
-            console.log(data)
             setCategoryData(data.records)
             setLoading(false)
         }

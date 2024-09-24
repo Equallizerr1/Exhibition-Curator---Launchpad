@@ -25,7 +25,6 @@ const App: React.FC = () => {
     }, [collection])
 
     const addToCollection = (artwork: any) => {
-        console.log(artwork.id)
         // Check if the artwork is already in the collection based on its ID
         const isArtworkInCollection = collection.some(
             (a) => a.id === artwork.id
