@@ -5,9 +5,6 @@ interface ArtworkDetailsProps {
     artwork: Artwork
 }
 const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({ artwork }) => {
-    // if (artwork.image_id === null) {
-    //     console.log(artwork.id)
-    // }
     return (
         <>
             <div className="col-span-4 col-start-2 grid grid-cols-3 gap-4">
@@ -24,6 +21,7 @@ const ArtworkDetails: React.FC<ArtworkDetailsProps> = ({ artwork }) => {
                                     src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
                                     //alt={artwork.thumbnail.alt_text}
                                 />
+
                                 <br />
                                 <h2>{artwork.title}</h2>
                                 <p>{artwork.artist_display}</p>

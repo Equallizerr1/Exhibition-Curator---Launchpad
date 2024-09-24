@@ -27,16 +27,25 @@ const ArtworkCollection: React.FC<ArtworkCollectionProps> = ({
                         <CarouselContent>
                             {collection.map((artwork) => (
                                 <>
-                                    {/* {console.log(artwork)} */}
+                                    {console.log(artwork.image_id)}
                                     <CarouselItem>
                                         <div className="p-1">
                                             <Card>
                                                 <CardContent className="flex aspect-square items-center justify-center p-6">
                                                     <span className="text-4xl font-semibold">
-                                                        <img
-                                                            src={artwork.image}
-                                                            alt=""
-                                                        />
+                                                        {artwork.image ? (
+                                                            <img
+                                                                src={
+                                                                    artwork.image
+                                                                }
+                                                                alt=""
+                                                            />
+                                                        ) : (
+                                                            <img
+                                                                src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
+                                                                //alt={artwork.thumbnail.alt_text}
+                                                            />
+                                                        )}
                                                     </span>
                                                 </CardContent>
                                             </Card>
