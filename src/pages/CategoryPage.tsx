@@ -37,6 +37,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
     const loadCategoryData = async () => {
         if (id) {
             const data = await fetchVaCategory(id)
+            console.log(data)
             setCategoryData(data.records)
             setLoading(false)
         }
@@ -53,7 +54,6 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
     if (!categoryRecords || categoryRecords.length === 0) {
         return <p>No data found for this category.</p>
     }
-    console.log(categoryRecords[0])
     const imgUrl = '/full/full/0/default.jpg'
     return (
         <div className="mx-10">
@@ -69,28 +69,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
                         src={`${record._images._iiif_image_base_url}${imgUrl}`}
                         alt={`${record._primaryTitle} thumbnail`}
                     />
-                    <p>
-                        <strong>Accession Number:</strong>{' '}
-                        {record.accessionNumber}
-                    </p>
-                    <p>
-                        <strong>Object Type:</strong> {record.objectType}
-                    </p>
-                    <p>
-                        <strong>Primary Date:</strong> {record._primaryDate}
-                    </p>
-                    <p>
-                        <strong>Primary Maker:</strong>{' '}
-                        {record._primaryMaker.name} (
-                        {record._primaryMaker.association})
-                    </p>
-                    <p>
-                        <strong>Primary Place:</strong> {record._primaryPlace}
-                    </p>
-                    <p>
-                        <strong>Current Location:</strong>{' '}
-                        {record._currentLocation.onDisplay}
-                    </p>
+                    <p> {record._primaryDate}</p>
                     <button
                         onClick={() =>
                             addToCollection(
@@ -99,6 +78,14 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
                                         title: record._primaryTitle,
                                         image: `${record._images._iiif_image_base_url}${imgUrl}`,
                                         id: record.accessionNumber,
+                                        date: record._primaryDate,
+                                        primaryPlace: record._primaryPlace,
+                                        currentLocation:
+                                            record._currentLocation,
+                                        objectType: record.objectType,
+                                        primaryMaker: record._primaryMaker.name,
+                                        primaryMakerAssociation:
+                                            record._primaryMaker.association,
                                     },
                                 ]
                             )
