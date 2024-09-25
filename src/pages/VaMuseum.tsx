@@ -48,7 +48,7 @@ export const VaMuseum: React.FC<VaMuseumProps> = ({ addToCollection }) => {
     }
 
     function setLimit(limit: number): void {
-        limit = 0
+        console.log(limit)
         throw new Error('Function not implemented.')
     }
 
@@ -59,7 +59,7 @@ export const VaMuseum: React.FC<VaMuseumProps> = ({ addToCollection }) => {
             <SearchForm
                 onSubmit={searchArtworks}
                 setLimit={setLimit}
-                limit={undefined}
+                limit={0}
             />
             {/* Sorting and filtering controls */}
             <FilterSortControls
