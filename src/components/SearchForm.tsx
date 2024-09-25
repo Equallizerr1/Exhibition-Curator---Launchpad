@@ -59,8 +59,14 @@ export const SearchForm: React.FC<SearchFormProps> = ({
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Submit</Button>
-                <Button type="button" onClick={() => window.location.reload()}>
+                <Button type="submit" variant={'outline'}>
+                    Submit
+                </Button>
+                <Button
+                    type="button"
+                    variant={'outline'}
+                    onClick={() => window.location.reload()}
+                >
                     Reset
                 </Button>
                 <DropdownMenuRadioGroupDemo limit={limit} setLimit={setLimit} />

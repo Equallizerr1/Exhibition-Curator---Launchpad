@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchVaCategory } from '@/services/articApi'
+import { Button } from '@/components/ui/button'
 
 interface VaCategoryData {
     accessionNumber: string
@@ -72,7 +73,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
                             />
                             <h2>{record._primaryTitle}</h2>
                             <p> {record._primaryDate}</p>
-                            <button
+                            <Button
+                                variant={'outline'}
                                 onClick={() =>
                                     addToCollection(
                                         ...[
@@ -97,7 +99,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
                                 }
                             >
                                 Add to Collection
-                            </button>
+                            </Button>
                         </div>
                     ))}
                 </div>

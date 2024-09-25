@@ -28,7 +28,7 @@ export const DropdownMenuRadioGroupDemo: React.FC<
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="default">Artworks per page</Button>
+                <Button variant={'outline'}>Artworks per page</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>Choose a number</DropdownMenuLabel>

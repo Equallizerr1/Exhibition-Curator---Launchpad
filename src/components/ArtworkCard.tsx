@@ -12,7 +12,7 @@ const ArtworkCard: React.FC<ArtworkCardProps> = ({
     onAddToCollection,
 }) => {
     return (
-        <div className="col-span-4 col-start-1 grid grid-cols-3 gap-4 bg-surface py-3">
+        <div className="col-span-4 col-start-1 grid grid-cols-3 gap-5 p-3">
             <div className="col-span-4 col-start-1 w-96">
                 <ArtworkDetails artwork={artwork}></ArtworkDetails>
                 <Button

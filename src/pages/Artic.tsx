@@ -162,7 +162,7 @@ export const Artic: React.FC<ArticProps> = ({ addToCollection }) => {
                 <p>loading</p>
             ) : (
                 <>
-                    <div>
+                    <div className="bg-surface py-3 p-5">
                         {searchedArt.length > 0
                             ? searchedArt.map((artwork) => (
                                   <ArtworkCard

@@ -23,121 +23,129 @@ const ArtworkCollection: React.FC<ArtworkCollectionProps> = ({
             <h2>My Collection</h2>
             <ul>
                 <>
-                    <Carousel>
-                        <CarouselContent>
-                            {collection.map((artwork) => (
-                                <>
-                                    <CarouselItem>
-                                        <div>
-                                            <Card>
-                                                <CardContent>
-                                                    <span>
-                                                        {artwork.image ? (
-                                                            <>
-                                                                <img
-                                                                    src={
-                                                                        artwork.image
-                                                                    }
-                                                                    alt=""
-                                                                />
-                                                                <br />
-                                                                <h2>
-                                                                    {
-                                                                        artwork.title
-                                                                    }
-                                                                </h2>
-                                                                <p>
-                                                                    Primary
-                                                                    Maker:{' '}
-                                                                    {
-                                                                        artwork.primaryMaker
-                                                                    }
-                                                                    {
-                                                                        artwork.primaryMakerAssociation
-                                                                    }
-                                                                </p>
-                                                                <p>
-                                                                    Primary
-                                                                    Date:{' '}
-                                                                    {
-                                                                        artwork.date
-                                                                    }
-                                                                </p>
-                                                                <p>
-                                                                    Object Type:{' '}
-                                                                    {
-                                                                        artwork.objectType
-                                                                    }
-                                                                </p>
-                                                                <p>
-                                                                    Primary
-                                                                    Place:{' '}
-                                                                    {
-                                                                        artwork.primaryPlace
-                                                                    }
-                                                                </p>
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <img
-                                                                    src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
-                                                                />
-                                                                <br />
-                                                                <h2>
-                                                                    {
-                                                                        artwork.title
-                                                                    }
-                                                                </h2>
-                                                                <p>
-                                                                    {
-                                                                        artwork.artist_display
-                                                                    }
-                                                                </p>
-                                                                <p>
-                                                                    {
-                                                                        artwork.date_display
-                                                                    }
-                                                                </p>
-                                                                <p>
-                                                                    {
-                                                                        artwork.medium_display
-                                                                    }
-                                                                </p>
-                                                                <br />
-                                                                <p>
-                                                                    {
-                                                                        artwork.exhibition_history
-                                                                    }
-                                                                </p>
-                                                                <br />
-                                                                <p>
-                                                                    {
-                                                                        artwork.description
-                                                                    }
-                                                                </p>
-                                                            </>
-                                                        )}
-                                                    </span>
-                                                </CardContent>
-                                                <li key={artwork.id}>
-                                                    <Button
-                                                        size={'lg'}
-                                                        onClick={() =>
-                                                            onRemove(artwork.id)
-                                                        }
-                                                    >
-                                                        Remove
-                                                    </Button>
-                                                </li>
-                                            </Card>
-                                        </div>
-                                    </CarouselItem>
-                                </>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
-                    </Carousel>
+                    {collection.length == 0 ? (
+                        <p>Please add an item to your exhibition</p>
+                    ) : (
+                        <Carousel>
+                            <CarouselContent>
+                                {collection.map((artwork) => (
+                                    <>
+                                        <CarouselItem>
+                                            <div>
+                                                <Card>
+                                                    <CardContent>
+                                                        <span>
+                                                            {artwork.image ? (
+                                                                <>
+                                                                    <img
+                                                                        src={
+                                                                            artwork.image
+                                                                        }
+                                                                        alt=""
+                                                                    />
+                                                                    <br />
+                                                                    <h2>
+                                                                        {
+                                                                            artwork.title
+                                                                        }
+                                                                    </h2>
+                                                                    <p>
+                                                                        Primary
+                                                                        Maker:{' '}
+                                                                        {
+                                                                            artwork.primaryMaker
+                                                                        }
+                                                                        {
+                                                                            artwork.primaryMakerAssociation
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        Primary
+                                                                        Date:{' '}
+                                                                        {
+                                                                            artwork.date
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        Object
+                                                                        Type:{' '}
+                                                                        {
+                                                                            artwork.objectType
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        Primary
+                                                                        Place:{' '}
+                                                                        {
+                                                                            artwork.primaryPlace
+                                                                        }
+                                                                    </p>
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <img
+                                                                        src={`https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`}
+                                                                    />
+                                                                    <br />
+                                                                    <h2>
+                                                                        {
+                                                                            artwork.title
+                                                                        }
+                                                                    </h2>
+                                                                    <p>
+                                                                        {
+                                                                            artwork.artist_display
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        {
+                                                                            artwork.date_display
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        {
+                                                                            artwork.medium_display
+                                                                        }
+                                                                    </p>
+                                                                    <br />
+                                                                    <p>
+                                                                        {
+                                                                            artwork.exhibition_history
+                                                                        }
+                                                                    </p>
+                                                                    <br />
+                                                                    <p>
+                                                                        {
+                                                                            artwork.description
+                                                                        }
+                                                                    </p>
+                                                                </>
+                                                            )}
+                                                        </span>
+                                                    </CardContent>
+                                                    <li key={artwork.id}>
+                                                        <Button
+                                                            size={'lg'}
+                                                            variant={'outline'}
+                                                            onClick={() =>
+                                                                onRemove(
+                                                                    artwork.id
+                                                                )
+                                                            }
+                                                        >
+                                                            Remove
+                                                        </Button>
+                                                    </li>
+                                                </Card>
+                                            </div>
+                                        </CarouselItem>
+                                    </>
+                                ))}
+                            </CarouselContent>
+                            <CarouselPrevious />
+                            <CarouselNext />
+                        </Carousel>
+                    )}
                 </>
             </ul>
         </div>
