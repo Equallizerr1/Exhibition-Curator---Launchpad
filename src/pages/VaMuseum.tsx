@@ -80,7 +80,7 @@ export const VaMuseum: React.FC<VaMuseumProps> = ({ addToCollection }) => {
                     )}
                     <>
                         {vaData.length == 0 ? (
-                            <p>search</p>
+                            <p>Search Results will appear here</p>
                         ) : (
                             <>
                                 {vaData.map((record) => (
