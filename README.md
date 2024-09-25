@@ -1,14 +1,36 @@
-Exhibition Curator allows users of the platform to enter key terms or choose from presets which will provide them with a list of artworks to select from. The selected artworks will then be added to a personalised exhibition that users can view.
+# Exhibition Curator - Launchpad
 
-ToDo
+Exhibition Curator is a web platform that allows users to curate personalized art exhibitions. Users can search for artworks by keywords or presets, save selected artworks to collections, and view detailed information about each piece. The goal is to offer an interactive, customizable art exhibition experience.
 
-Minimum viable product
-A website or a web progressive app (WAP) where:
+## Features
+- Search for artworks based on keywords or preset categories
+- Save artworks to a temporary collection
+- Create personalized exhibitions with detailed artwork views
 
-~~1. a user can provide some search criteria to filter and sort artworks.~~
+## Tech Stack
+- **Frontend**: TypeScript, Tailwind CSS, Vite
+- **Backend**: N/A (for now)
 
-~~2. the artworks can then be saved into a temporary collection, which can be viewed and expanded.~~
+## Future Plans
+- Enhance artwork filtering
+- Persistent exhibition collections
 
-~~3. images and core information about the artwork are displayed when a user interacts with a thumbnail or other indicator of an artwork from the exhibition. ~~
+## Demo
+[Live Demo](https://exhibition-curator-launchpad.vercel.app)
 
-~~4. the user can select which artworks they want to include in an exhibition they are creating which persists for the duration of their session.~~
+## Installation
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/Equallizerr1/Exhibition-Curator---Launchpad.git
+    ```
+2. Navigate to the project directory and install dependencies:
+    ```bash
+    npm install
+    ```
+3. Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+## Contributing
+Feel free to submit issues or pull requests.
