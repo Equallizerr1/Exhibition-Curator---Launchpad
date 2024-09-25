@@ -45,7 +45,7 @@ const App: React.FC = () => {
     return (
         <Router>
             <nav className="bg-primary text-xl">
-                <ul className="m-4 ms-8 flex list-none gap-1">
+                <ul className="flex list-none gap-2">
                     <li>
                         <Link to="/">Home</Link>
                     </li>
