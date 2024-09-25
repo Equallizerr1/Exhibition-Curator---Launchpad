@@ -8,6 +8,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { SearchForm } from '@/components/SearchForm'
 import { VaCategoryData } from './CategoryPage'
+import { FilterSortControls } from '@/components/FilterSortControls'
 
 interface VaCategory {
     count: number
@@ -21,6 +22,9 @@ interface VaMuseumProps {
 export const VaMuseum: React.FC<VaMuseumProps> = ({ addToCollection }) => {
     const [categories, setCategories] = useState<VaCategory[]>([])
     const [vaData, setVaDAta] = useState<VaCategoryData[]>([])
+    const [sortOption, setSortOption] = useState<string>('title')
+    const [filterArtist, setFilterArtist] = useState<string>('')
+    const [filterMedium, setFilterMedium] = useState<string>('')
     const navigate = useNavigate() // Initialize useNavigate
 
     // Function to load categories
@@ -55,6 +59,15 @@ export const VaMuseum: React.FC<VaMuseumProps> = ({ addToCollection }) => {
                 onSubmit={searchArtworks}
                 setLimit={setLimit}
                 limit={undefined}
+            />
+            {/* Sorting and filtering controls */}
+            <FilterSortControls
+                filterArtist={filterArtist}
+                setFilterArtist={setFilterArtist}
+                filterMedium={filterMedium}
+                setFilterMedium={setFilterMedium}
+                sortOption={sortOption}
+                setSortOption={setSortOption}
             />
             <div className="bg-surface">
                 <div>
