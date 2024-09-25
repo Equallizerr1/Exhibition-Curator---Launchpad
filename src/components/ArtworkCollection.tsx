@@ -19,7 +19,7 @@ const ArtworkCollection: React.FC<ArtworkCollectionProps> = ({
     onRemove,
 }) => {
     return (
-        <div className="mx-10">
+        <div className="mx-5">
             <h2>My Collection</h2>
             <ul>
                 <>
@@ -30,7 +30,7 @@ const ArtworkCollection: React.FC<ArtworkCollectionProps> = ({
                                     <CarouselItem>
                                         <div>
                                             <Card>
-                                                <CardContent className="flex aspect-square items-center justify-center p-6">
+                                                <CardContent>
                                                     <span>
                                                         {artwork.image ? (
                                                             <>

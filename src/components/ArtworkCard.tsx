@@ -12,14 +12,16 @@ const ArtworkCard: React.FC<ArtworkCardProps> = ({
     onAddToCollection,
 }) => {
     return (
-        <div className="bg-surface">
-            <ArtworkDetails artwork={artwork}></ArtworkDetails>
-            <Button
-                variant={'outline'}
-                onClick={() => onAddToCollection(artwork)}
-            >
-                Add to Collection
-            </Button>
+        <div className="col-span-4 col-start-1 grid grid-cols-3 gap-4 bg-surface py-3">
+            <div className="col-span-4 col-start-1 w-96">
+                <ArtworkDetails artwork={artwork}></ArtworkDetails>
+                <Button
+                    variant={'outline'}
+                    onClick={() => onAddToCollection(artwork)}
+                >
+                    Add to Collection
+                </Button>
+            </div>
         </div>
     )
 }

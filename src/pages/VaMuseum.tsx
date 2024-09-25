@@ -32,23 +32,25 @@ export const VaMuseum = () => {
     return (
         <>
             <h1>Victoria & Albert Museum</h1>
-            <div>
-                <h2>Categories</h2>
-                {categories.length === 0 ? (
-                    <p>Loading categories...</p>
-                ) : (
-                    <>
-                        {categories.map((category) => (
-                            <ul key={category.id}>
-                                <Button
-                                    onClick={() => handleClick(category.id)}
-                                >
-                                    {category.value}
-                                </Button>
-                            </ul>
-                        ))}
-                    </>
-                )}
+            <div className="bg-surface">
+                <div>
+                    <h2>Categories</h2>
+                    {categories.length === 0 ? (
+                        <p>Loading categories...</p>
+                    ) : (
+                        <>
+                            {categories.map((category) => (
+                                <ul key={category.id}>
+                                    <Button
+                                        onClick={() => handleClick(category.id)}
+                                    >
+                                        {category.value}
+                                    </Button>
+                                </ul>
+                            ))}
+                        </>
+                    )}
+                </div>
             </div>
         </>
     )

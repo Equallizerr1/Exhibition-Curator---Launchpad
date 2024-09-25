@@ -37,6 +37,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
     const loadCategoryData = async () => {
         if (id) {
             const data = await fetchVaCategory(id)
+            console.log(data)
             setCategoryData(data.records)
             setLoading(false)
         }
@@ -55,45 +56,52 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
     }
     const imgUrl = '/full/full/0/default.jpg'
     return (
-        <div className="mx-10">
-            <h1>Category Items</h1>
-            {categoryRecords.map((record, index) => (
-                <div
-                    key={index}
-                    className="border-gray-300 mb-4 w-72 rounded-lg border p-4"
-                >
-                    <img
-                        className="mb-4 block"
-                        src={`${record._images._iiif_image_base_url}${imgUrl}`}
-                        alt={`${record._primaryTitle} thumbnail`}
-                    />
-                    <h2>{record._primaryTitle}</h2>
-                    <p> {record._primaryDate}</p>
-                    <button
-                        onClick={() =>
-                            addToCollection(
-                                ...[
-                                    {
-                                        title: record._primaryTitle,
-                                        image: `${record._images._iiif_image_base_url}${imgUrl}`,
-                                        id: record.accessionNumber,
-                                        date: record._primaryDate,
-                                        primaryPlace: record._primaryPlace,
-                                        currentLocation:
-                                            record._currentLocation,
-                                        objectType: record.objectType,
-                                        primaryMaker: record._primaryMaker.name,
-                                        primaryMakerAssociation:
-                                            record._primaryMaker.association,
-                                    },
-                                ]
-                            )
-                        }
-                    >
-                        Add to Collection
-                    </button>
+        <>
+            <h1>{categoryRecords[0].objectType}</h1>
+            <div className="bg-surface">
+                <div className="mx-10">
+                    {categoryRecords.map((record, index) => (
+                        <div
+                            key={index}
+                            className="border-gray-300 mb-4 w-72 rounded-lg border p-4"
+                        >
+                            <img
+                                className="mb-4 block"
+                                src={`${record._images._iiif_image_base_url}${imgUrl}`}
+                                alt={`${record._primaryTitle} thumbnail`}
+                            />
+                            <h2>{record._primaryTitle}</h2>
+                            <p> {record._primaryDate}</p>
+                            <button
+                                onClick={() =>
+                                    addToCollection(
+                                        ...[
+                                            {
+                                                title: record._primaryTitle,
+                                                image: `${record._images._iiif_image_base_url}${imgUrl}`,
+                                                id: record.accessionNumber,
+                                                date: record._primaryDate,
+                                                primaryPlace:
+                                                    record._primaryPlace,
+                                                currentLocation:
+                                                    record._currentLocation,
+                                                objectType: record.objectType,
+                                                primaryMaker:
+                                                    record._primaryMaker.name,
+                                                primaryMakerAssociation:
+                                                    record._primaryMaker
+                                                        .association,
+                                            },
+                                        ]
+                                    )
+                                }
+                            >
+                                Add to Collection
+                            </button>
+                        </div>
+                    ))}
                 </div>
-            ))}
-        </div>
+            </div>
+        </>
     )
 }

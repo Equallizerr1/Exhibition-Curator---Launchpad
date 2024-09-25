@@ -1,3 +1,4 @@
+// Artic.tsx
 import React, { useState, useEffect } from 'react'
 import {
     fetchArtworksArtic,
@@ -5,20 +6,10 @@ import {
     fetchArtworkImagesArtic,
 } from '../services/articApi'
 import ArtworkCard from '../components/ArtworkCard'
-import { DropdownMenuRadioGroupDemo } from '@/components/DropdownMenuRadioGroupDemo'
 import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage,
-} from '@/components/ui/form'
+import { SearchForm } from '@/components/SearchForm'
 
 export interface ArticProps {
     addToCollection: (artwork: Array<[]>) => void
@@ -50,12 +41,11 @@ export const Artic: React.FC<ArticProps> = ({ addToCollection }) => {
     const [nextPageData, setNextPageData] = useState<Artwork[]>([])
     const [searchedArt, setSearchedArt] = useState<Artwork[]>([])
 
-    // Sorting and filtering state
-    const [sortOption, setSortOption] = useState<string>('title') // Default sorting by title
+    const [sortOption, setSortOption] = useState<string>('title')
     const [filterArtist, setFilterArtist] = useState<string>('')
     const [filterMedium, setFilterMedium] = useState<string>('')
 
-    const searchArtworks = async (artistId: string) => {
+    const searchArtworks = async ({ artistId }: { artistId: string }) => {
         const data = await fetchArtworksSearchArtic(artistId)
         if (data) setArtworkIds(data)
     }
@@ -107,7 +97,6 @@ export const Artic: React.FC<ArticProps> = ({ addToCollection }) => {
         }
     }
 
-    // Filter and sort the artworks based on user input
     const filteredAndSortedArtworks = artworks
         .filter((artwork) => {
             return (
@@ -137,60 +126,16 @@ export const Artic: React.FC<ArticProps> = ({ addToCollection }) => {
         })
     }, [artworkIds])
 
-    const FormSchema = z.object({
-        artistId: z.string().min(2, {
-            message: 'Artist name must be at least 2 characters.',
-        }),
-    })
-
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
-        defaultValues: {
-            artistId: '',
-        },
-    })
-
-    function onSubmit(data: z.infer<typeof FormSchema>) {
-        searchArtworks(data.artistId)
-    }
-
     return (
         <>
             <h1>Art Institute of Chicago</h1>
             <div className="bg-background">
-                <Form {...form}>
-                    <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="w-2/3 space-y-6"
-                    >
-                        <FormField
-                            control={form.control}
-                            name="artistId"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormControl>
-                                        <Input
-                                            placeholder="Search for Artwork"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <Button type="submit">Submit</Button>
-                        <Button
-                            type="button"
-                            onClick={() => window.location.reload()}
-                        >
-                            Reset
-                        </Button>
-                        <DropdownMenuRadioGroupDemo
-                            limit={limit}
-                            setLimit={setLimit}
-                        />
-                    </form>
-                </Form>
+                <SearchForm
+                    onSubmit={searchArtworks}
+                    setLimit={setLimit}
+                    limit={limit}
+                />
+
                 {/* Sorting and filtering controls */}
                 <div className="mt-4 flex space-x-4">
                     <Input
