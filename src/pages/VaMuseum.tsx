@@ -47,7 +47,8 @@ export const VaMuseum: React.FC<VaMuseumProps> = ({ addToCollection }) => {
         if (data) setVaDAta(data)
     }
 
-    function setLimit(limit: any): void {
+    function setLimit(limit: number): void {
+        limit = 0
         throw new Error('Function not implemented.')
     }
 
