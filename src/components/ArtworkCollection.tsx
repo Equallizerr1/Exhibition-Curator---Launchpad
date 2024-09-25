@@ -19,7 +19,7 @@ const ArtworkCollection: React.FC<ArtworkCollectionProps> = ({
     onRemove,
 }) => {
     return (
-        <div className="mx-5">
+        <div className="mx-5 p-8">
             <h2>My Collection</h2>
             <ul>
                 <>
