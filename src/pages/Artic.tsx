@@ -7,9 +7,9 @@ import {
 } from '../services/articApi'
 import ArtworkCard from '../components/ArtworkCard'
 import { Link } from 'react-router-dom'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { SearchForm } from '@/components/SearchForm'
+import { FilterSortControls } from '@/components/FilterSortControls'
 
 export interface ArticProps {
     addToCollection: (artwork: Array<[]>) => void
@@ -137,26 +137,14 @@ export const Artic: React.FC<ArticProps> = ({ addToCollection }) => {
             />
 
             {/* Sorting and filtering controls */}
-            <div className="mt-4 flex space-x-4">
-                <Input
-                    placeholder="Filter by Artist"
-                    value={filterArtist}
-                    onChange={(e) => setFilterArtist(e.target.value)}
-                />
-                <Input
-                    placeholder="Filter by Medium"
-                    value={filterMedium}
-                    onChange={(e) => setFilterMedium(e.target.value)}
-                />
-                <select
-                    value={sortOption}
-                    onChange={(e) => setSortOption(e.target.value)}
-                >
-                    <option value="title">Sort by Title</option>
-                    <option value="artist">Sort by Artist</option>
-                    <option value="date">Sort by Date</option>
-                </select>
-            </div>
+            <FilterSortControls
+                filterArtist={filterArtist}
+                setFilterArtist={setFilterArtist}
+                filterMedium={filterMedium}
+                setFilterMedium={setFilterMedium}
+                sortOption={sortOption}
+                setSortOption={setSortOption}
+            />
 
             {artworks.length == 0 ? (
                 <p>loading</p>
