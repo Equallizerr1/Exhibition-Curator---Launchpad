@@ -129,40 +129,40 @@ export const Artic: React.FC<ArticProps> = ({ addToCollection }) => {
     return (
         <>
             <h1>Art Institute of Chicago</h1>
-            <div className="bg-background">
-                <SearchForm
-                    onSubmit={searchArtworks}
-                    setLimit={setLimit}
-                    limit={limit}
-                />
 
-                {/* Sorting and filtering controls */}
-                <div className="mt-4 flex space-x-4">
-                    <Input
-                        placeholder="Filter by Artist"
-                        value={filterArtist}
-                        onChange={(e) => setFilterArtist(e.target.value)}
-                    />
-                    <Input
-                        placeholder="Filter by Medium"
-                        value={filterMedium}
-                        onChange={(e) => setFilterMedium(e.target.value)}
-                    />
-                    <select
-                        value={sortOption}
-                        onChange={(e) => setSortOption(e.target.value)}
-                    >
-                        <option value="title">Sort by Title</option>
-                        <option value="artist">Sort by Artist</option>
-                        <option value="date">Sort by Date</option>
-                    </select>
-                </div>
+            <SearchForm
+                onSubmit={searchArtworks}
+                setLimit={setLimit}
+                limit={limit}
+            />
+
+            {/* Sorting and filtering controls */}
+            <div className="mt-4 flex space-x-4">
+                <Input
+                    placeholder="Filter by Artist"
+                    value={filterArtist}
+                    onChange={(e) => setFilterArtist(e.target.value)}
+                />
+                <Input
+                    placeholder="Filter by Medium"
+                    value={filterMedium}
+                    onChange={(e) => setFilterMedium(e.target.value)}
+                />
+                <select
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)}
+                >
+                    <option value="title">Sort by Title</option>
+                    <option value="artist">Sort by Artist</option>
+                    <option value="date">Sort by Date</option>
+                </select>
             </div>
+
             {artworks.length == 0 ? (
                 <p>loading</p>
             ) : (
                 <>
-                    <div className="bg-surface py-3 p-5">
+                    <div className="bg-surface p-5 py-3">
                         {searchedArt.length > 0
                             ? searchedArt.map((artwork) => (
                                   <ArtworkCard

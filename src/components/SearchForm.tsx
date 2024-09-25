@@ -39,38 +39,43 @@ export const SearchForm: React.FC<SearchFormProps> = ({
     })
 
     return (
-        <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="w-2/3 space-y-6"
-            >
-                <FormField
-                    control={form.control}
-                    name="artistId"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormControl>
-                                <Input
-                                    placeholder="Search for Artwork"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type="submit" variant={'outline'}>
-                    Submit
-                </Button>
-                <Button
-                    type="button"
-                    variant={'outline'}
-                    onClick={() => window.location.reload()}
+        <div className="bg-background">
+            <Form {...form}>
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="w-2/3 space-y-6"
                 >
-                    Reset
-                </Button>
-                <DropdownMenuRadioGroupDemo limit={limit} setLimit={setLimit} />
-            </form>
-        </Form>
+                    <FormField
+                        control={form.control}
+                        name="artistId"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Search for Artwork"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <Button type="submit" variant={'outline'}>
+                        Submit
+                    </Button>
+                    <Button
+                        type="button"
+                        variant={'outline'}
+                        onClick={() => window.location.reload()}
+                    >
+                        Reset
+                    </Button>
+                    <DropdownMenuRadioGroupDemo
+                        limit={limit}
+                        setLimit={setLimit}
+                    />
+                </form>
+            </Form>
+        </div>
     )
 }
