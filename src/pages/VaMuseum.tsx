@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchVaCategory, fetchVaData } from '@/services/articApi'
 import { Button } from '@/components/ui/button'
+import { SearchForm } from '@/components/SearchForm'
 
 interface VaCategory {
     count: number
@@ -29,9 +30,22 @@ export const VaMuseum = () => {
         navigate(`/categories/${categoryId}`) // Navigate to CategoryPage with category ID
     }
 
+    function searchArtworks(data: { artistId: string }): void {
+        throw new Error('Function not implemented.')
+    }
+
+    function setLimit(limit: any): void {
+        throw new Error('Function not implemented.')
+    }
+
     return (
         <>
             <h1>Victoria & Albert Museum</h1>
+            <SearchForm
+                onSubmit={searchArtworks}
+                setLimit={setLimit}
+                limit={undefined}
+            />
             <div className="bg-surface">
                 <div>
                     <h2>Categories</h2>
