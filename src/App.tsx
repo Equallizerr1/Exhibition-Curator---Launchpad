@@ -66,7 +66,10 @@ const App: React.FC = () => {
                     path="/artic"
                     element={<Artic addToCollection={addToCollection} />}
                 />
-                <Route path="/vamuseum" element={<VaMuseum />} />
+                <Route
+                    path="/vamuseum"
+                    element={<VaMuseum addToCollection={addToCollection} />}
+                />
                 <Route
                     path="/exhibition"
                     element={
@@ -86,4 +89,3 @@ const App: React.FC = () => {
 }
 
 export default App
-

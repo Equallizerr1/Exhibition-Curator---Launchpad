@@ -70,5 +70,22 @@ export const fetchVaCategory = async (category: string) => {
             `https://api.vam.ac.uk/v2/objects/search?id_category=${category}`
         )
         return response.data
-    } catch (error) {}
+    } catch (error) {
+        console.error('Error fetching Category:', error)
+    }
+}
+
+const BASE_URL = 'https://api.vam.ac.uk/v2/'
+
+export const fetchVaSearch = async (searchQuery: string) => {
+    try {
+        const response = await axios.get(
+            `${BASE_URL}objects/search?q=${searchQuery}`
+        )
+        console.log(response.data.records)
+        return response.data.records // Assuming this is the correct response structure
+    } catch (error) {
+        console.error('Error fetching V&A search results:', error)
+        return null
+    }
 }

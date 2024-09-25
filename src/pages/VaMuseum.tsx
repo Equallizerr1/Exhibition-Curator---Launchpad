@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fetchVaCategory, fetchVaData } from '@/services/articApi'
+import {
+    fetchVaCategory,
+    fetchVaData,
+    fetchVaSearch,
+} from '@/services/articApi'
 import { Button } from '@/components/ui/button'
 import { SearchForm } from '@/components/SearchForm'
+import { VaCategoryData } from './CategoryPage'
 
 interface VaCategory {
     count: number
@@ -10,9 +15,12 @@ interface VaCategory {
     id: string
     value: string
 }
-
-export const VaMuseum = () => {
+interface VaMuseumProps {
+    addToCollection: (artwork: any) => void
+}
+export const VaMuseum: React.FC<VaMuseumProps> = ({ addToCollection }) => {
     const [categories, setCategories] = useState<VaCategory[]>([])
+    const [vaData, setVaDAta] = useState<VaCategoryData[]>([])
     const navigate = useNavigate() // Initialize useNavigate
 
     // Function to load categories
@@ -30,14 +38,16 @@ export const VaMuseum = () => {
         navigate(`/categories/${categoryId}`) // Navigate to CategoryPage with category ID
     }
 
-    function searchArtworks(data: { artistId: string }): void {
-        throw new Error('Function not implemented.')
+    const searchArtworks = async ({ artistId }: { artistId: string }) => {
+        const data = await fetchVaSearch(artistId)
+        if (data) setVaDAta(data)
     }
 
     function setLimit(limit: any): void {
         throw new Error('Function not implemented.')
     }
 
+    const imgUrl = '/full/full/0/default.jpg'
     return (
         <>
             <h1>Victoria & Albert Museum</h1>
@@ -53,17 +63,69 @@ export const VaMuseum = () => {
                         <p>Loading categories...</p>
                     ) : (
                         <>
-                            {categories.map((category) => (
-                                <ul key={category.id}>
-                                    <Button
-                                        onClick={() => handleClick(category.id)}
-                                    >
-                                        {category.value}
-                                    </Button>
-                                </ul>
-                            ))}
+                            <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                                {categories.map((category) => (
+                                    <ul key={category.id}>
+                                        <Button
+                                            onClick={() =>
+                                                handleClick(category.id)
+                                            }
+                                        >
+                                            {category.value}
+                                        </Button>
+                                    </ul>
+                                ))}
+                            </div>
                         </>
                     )}
+                    <>
+                        {vaData.length == 0 ? (
+                            <p>search</p>
+                        ) : (
+                            <>
+                                {vaData.map((record) => (
+                                    <ul key={record.accessionNumber}>
+                                        <img
+                                            src={`${record._images._iiif_image_base_url}${imgUrl}`}
+                                            alt={record._primaryTitle}
+                                        />
+                                        <h2>{record._primaryTitle}</h2>
+                                        <Button
+                                            variant={'outline'}
+                                            onClick={() =>
+                                                addToCollection(
+                                                    ...[
+                                                        {
+                                                            title: record._primaryTitle,
+                                                            image: `${record._images._iiif_image_base_url}${imgUrl}`,
+                                                            id: record.accessionNumber,
+                                                            date: record._primaryDate,
+                                                            primaryPlace:
+                                                                record._primaryPlace,
+                                                            currentLocation:
+                                                                record._currentLocation,
+                                                            objectType:
+                                                                record.objectType,
+                                                            primaryMaker:
+                                                                record
+                                                                    ._primaryMaker
+                                                                    .name,
+                                                            primaryMakerAssociation:
+                                                                record
+                                                                    ._primaryMaker
+                                                                    .association,
+                                                        },
+                                                    ]
+                                                )
+                                            }
+                                        >
+                                            Add to Collection
+                                        </Button>
+                                    </ul>
+                                ))}
+                            </>
+                        )}
+                    </>
                 </div>
             </div>
         </>

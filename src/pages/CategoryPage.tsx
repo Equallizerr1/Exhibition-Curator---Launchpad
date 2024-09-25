@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { fetchVaCategory } from '@/services/articApi'
 import { Button } from '@/components/ui/button'
 
-interface VaCategoryData {
+export interface VaCategoryData {
     accessionNumber: string
     objectType: string
     _currentLocation: {
