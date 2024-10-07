@@ -1,6 +1,8 @@
 # Exhibition Curator - Launchpad
 
 Exhibition Curator is a web platform that allows users to curate personalized art exhibitions. Users can search for artworks by keywords or presets, save selected artworks to collections, and view detailed information about each piece. The goal is to offer an interactive, customizable art exhibition experience.
+## Demo
+[Live Demo](https://exhibition-curator-launchpad-git-main-equallizerr1s-projects.vercel.app/)
 
 ## Features
 - Search for artworks based on keywords or preset categories
@@ -9,16 +11,15 @@ Exhibition Curator is a web platform that allows users to curate personalized ar
 
 ## Tech Stack
 - **Frontend**: TypeScript, Tailwind CSS, Vite
-- **Backend**: N/A (for now)
+- **Backend**: No backend implementation yet. The app is currently frontend-focused.
 
 ## Future Plans
 - Enhance artwork filtering
 - Persistent exhibition collections
 
-## Demo
-[Live Demo](https://exhibition-curator-launchpad.vercel.app)
 
 ## Installation
+You must have Node version 20 or higher
 1. Clone the repository:
     ```bash
     git clone https://github.com/Equallizerr1/Exhibition-Curator---Launchpad.git
